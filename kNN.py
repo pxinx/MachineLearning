@@ -13,7 +13,7 @@ def classify(inX, dataSet, labels, k):
     dataSetSize = dataSet.shape[0]  # shape是array的属性，描述了一个数组的形状，就是它的维度。所以dataset.shape[0]就是样本集的个数
     diff_mat = tile(inX, (dataSetSize, 1)) - dataSet  # 用欧式距离公式计算两个向量点之间的距离
     sq_diff_mat = diff_mat ** 2  # 平方
-    sq_distances = sq_diff_mat.sum(axis=1)  # 对行求和，若axis=0是对咧求和
+    sq_distances = sq_diff_mat.sum(axis=1)  # 对行求和，若axis=0是对列求和
     distances = sq_distances ** 0.5  # 开根号
     sorted_dist_indicies = distances.argsort()  # 对数组升序排序,argsort()是对位置进行排序！！！
     classCount = {}  # classCount是字典，key是标签
