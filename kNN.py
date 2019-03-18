@@ -24,3 +24,22 @@ def classify(inX, dataSet, labels, k):
     sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)  # 进行降序排序
     # py3中没有iteritems，直接用items，py2则用iteritems
     return sortedClassCount[0][0]  # sortedClassCount[0][0]也就是排序后的次数最大的那个label
+
+	
+	# 将约会数据文本记录转化为numpy的解析程序
+def file2matrix(filename):
+    fr = open(filename)
+    arrayOLines = fr.readlines()  # readlines()自动将文件内容分析成一个行的列表，该列表可以由 for ... in ... 结构进行处理。
+    numberOfLines = len(arrayOLines)  # 得到文件的行数
+    # 创建返回Numpy的矩阵
+    returnMat = zeros((numberOfLines, 3))
+    classLabelVector = []
+    index = 0
+    # 解析文件数据到列表
+    for line in arrayOLines:
+        line = line.strip()  # 移除字符串头尾指定的字符序列
+        listFromLine = line.split('\t')  # 截取所有的回车字符
+        returnMat[index, :] = listFromLine[0:3]  # 选取前三列
+        classLabelVector.append(int(listFromLine[-1]))  # 将列表的最后一列存储到向量classLabelVector中
+        index += 1
+    return returnMat, classLabelVector
