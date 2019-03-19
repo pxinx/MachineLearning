@@ -43,3 +43,19 @@ def file2matrix(filename):
         classLabelVector.append(int(listFromLine[-1]))  # 将列表的最后一列存储到向量classLabelVector中
         index += 1
     return returnMat, classLabelVector
+	
+	
+	# 归一化特征值（约会数据）
+def autoNorm(dataSet):
+    # 取最小值和最大值并计算差值
+    minVals = dataSet.min(0)
+    maxVals = dataSet.max(0)
+    ranges = maxVals - minVals
+    # 建立一个1000*3的矩阵 值都是0
+    normDataSet = numpy.zeros(numpy.shape(dataSet), dtype=float)
+    # 取dataSet的维度 1000
+    m = dataSet.shape[0]
+    # 利用公式进行归一化（ newValue = (oldValue - min)/(max - min) ）
+    normDataSet = dataSet - numpy.tile(minVals, (m, 1))
+    normDataSet = normDataSet / numpy.tile(ranges, (m, 1))
+    return normDataSet, ranges, minVals
